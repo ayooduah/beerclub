@@ -9,7 +9,7 @@ describe('TableAndChartWrapper', () => {
     })
   })
   describe('BeerClubChart', () => {
-    test('renders table', () => {
+    test('renders Chart', () => {
       expect(true).toBe(false);
     })
   })

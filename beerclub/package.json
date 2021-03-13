@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "bootstrap": "^5.0.0-beta2",
     "jest-enzyme": "^7.1.2",
+    "jquery-csv": "^1.0.11",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.3",
