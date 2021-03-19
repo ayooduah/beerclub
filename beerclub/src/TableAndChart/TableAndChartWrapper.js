@@ -1,10 +1,8 @@
 import BeerClubTable from "./BeerClubTable";
 import BeerClubChart from "./BeerClubChart";
-import csv from 'jquery-csv';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect,useState } from 'react';
 
 function TableAndChartWrapper() {
-    //TODO Look for a better way to do this -AO
     const beerClubCSV = 'member,beer-style,date\n' +
         'steve,IPA,2015-01-01T01:00:00.000Z\n' +
         'steve,Porter,2015-01-02T02:00:00.000Z\n' +
@@ -31,39 +29,57 @@ function TableAndChartWrapper() {
         'jack,Porter,2015-05-01T05:00:00.000Z\n' +
         'jack,Stout,2015-05-01T06:00:00.000Z\n' +
         'jack,IPA,2015-05-01T07:00:00.000Z';
+    const [beerClubData,setBeerClubData] = useState([])
+    const [tableHeader,setTableHeader] = useState([])
+    const [selectedPerson,setSelectedPerson] = useState("")
+    //fetch Data
+    //Static header now - here in case of need to change
+    useEffect(() => {
+        setBeerClubData(formatCSVToBCObj());
+        setTableHeader(['Person','Consumption']);
+    },[setBeerClubData,setTableHeader])
+
     const formatCSVToBCObj = () => {
         const csvArr = beerClubCSV.split('\n');
         let beerClubDataArr = [];
-        let tableHeaders =  ['Person','Consumption'];
-
+        let count = 1;
         for(let i=1;i<csvArr.length;i++) {
-            const data = csvArr[i].split(',');
             let currBeerClubObj = {};
-            for(let j=0;j<data.length;j++) {
-                currBeerClubObj[tableHeaders[j].trim()] = data[j].trim();
+            //check for count
+            if(csvArr[i+1] && csvArr[i].includes(csvArr[i+1].split(',')[0])){
+                count++
+            } else {
+                currBeerClubObj.person = csvArr[i].split(',')[0];
+                currBeerClubObj.consumption = count;
+                beerClubDataArr.push(currBeerClubObj);
+                count=1;
             }
-            beerClubDataArr.push(currBeerClubObj);
         }
         return beerClubDataArr;
     }
-    const getBeerClubData = () => {
-        const formattedBeerClubData = formatCSVToBCObj();
-        console.log('beerClubData Before: ', formattedBeerClubData);
-
-       return formattedBeerClubData;
-    }
-    const beerClubData = getBeerClubData();
-    //TODO Promise/Data fetching here
-    //TODO Change subHeader-text to be dynamic for who is selected -AO
   return (
     <div className="TableAndChartWrapper">
-      <div className="TableAndChartWrapper-body">
-          <span className="TableAndChartWrapper-body-subHeader-text">
-              Consumption per Member: Beer consumed by Steve
-          </span>
-      </div>
-        <BeerClubTable beerClubData={''}/>
-        <BeerClubChart beerClubData={''} selectedPerson={''}/>
+        <p className="lead">
+            Consumption per Member: {
+            selectedPerson === '' ? 'Please Select a Person' :
+                'Beer consumed by ' + selectedPerson
+        }
+        </p>
+
+        {beerClubData && tableHeader &&
+        <div className="TableAndChartWrapper-body">
+            <BeerClubTable
+                beerClubTableHeader={tableHeader}
+                beerClubData={beerClubData}
+                setSelectedPerson={setSelectedPerson}
+            />
+            <BeerClubChart
+                beerClubTableHeader={tableHeader}
+                beerClubData={beerClubData}
+                selectedPerson={selectedPerson}
+            />
+        </div>
+        }
     </div>
   );
 }

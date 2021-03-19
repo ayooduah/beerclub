@@ -1,9 +1,9 @@
-.App {
-
-}
 .App-header {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   font-size: calc(10px + 2vmin);
+}
+.TableAndChartWrapper-body {
+  display: flex;
 }

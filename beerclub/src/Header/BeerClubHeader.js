@@ -1,9 +1,9 @@
 function BeerClubHeader() {
   return (
     <div className="Header">
-      <header className="App-header">
+      <h1 className="display-5">
         Data Analysis for Beer Club
-      </header>
+      </h1>
     </div>
   );
 }

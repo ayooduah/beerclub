@@ -1,9 +1,25 @@
-function TableAndChartWrapper() {
-    //TODO Promise/Data fetching here
-    //TODO Change subHeader-text to be dynamic for who is selected -AO
+import { Chart } from "react-google-charts";
+import React from 'react';
+
+function TableAndChartWrapper(props) {
+    const chartData = [props.beerClubTableHeader]
+    props.beerClubData.forEach((value) => {
+      chartData.push([value.person, value.consumption]);
+    })
+  console.log('props.chartData', chartData);
+
   return (
     <div className="BeerClubChart">
-
+      <Chart
+          width={'800px'}
+          height={'400px'}
+          chartType="PieChart"
+          data={chartData}
+          options={{
+            legend: 'none',
+            pieSliceText: 'label',
+          }}
+      />
     </div>
   );
 }
