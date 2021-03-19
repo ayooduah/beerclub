@@ -1,7 +1,7 @@
 import { Chart } from "react-google-charts";
 import React from 'react';
 
-function TableAndChartWrapper(props) {
+function BeerClubChart(props) {
     const chartData = [props.beerClubTableHeader]
     props.beerClubData.forEach((value) => {
       chartData.push([value.person, value.consumption]);
@@ -23,4 +23,4 @@ function TableAndChartWrapper(props) {
   );
 }
 
-export default TableAndChartWrapper;
+export default BeerClubChart;
