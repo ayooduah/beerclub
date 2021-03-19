@@ -16,7 +16,7 @@ function BeerClubTable(props) {
     props.beerClubData.forEach(
         (value, index) => {
           tableBody.push(
-              <tr onClick={() => setSelectedPerson(value.person)}>
+              <tr key={"BeerClubTableRow" + index} onClick={() => setSelectedPerson(value.person)}>
                 <td key={"BeerClubTablePerson" + index}>{value.person}</td>
                 <td key={"BeerClubTableConsumption" + index}>{value.consumption}</td>
               </tr>
@@ -29,7 +29,7 @@ function BeerClubTable(props) {
   const setSelectedPerson = (selectedPerson) => {
     props.setSelectedPerson(selectedPerson);
   }
-  console.log('props.beerClubData: ',props.beerClubData);
+
   return (
     <div className="BeerClubTableWrapper">
         <table className="table table-hover">
@@ -42,7 +42,6 @@ function BeerClubTable(props) {
           {getTableBody()}
           </tbody>
         </table>
-
     </div>
   );
 }

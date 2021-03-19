@@ -6,7 +6,6 @@ function TableAndChartWrapper(props) {
     props.beerClubData.forEach((value) => {
       chartData.push([value.person, value.consumption]);
     })
-  console.log('props.chartData', chartData);
 
   return (
     <div className="BeerClubChart">
